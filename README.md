@@ -3,7 +3,7 @@ TypeScript typings for regl
 
 ### TODO
 
-- [ ] Test it JavaScript project, as opposed to TypeScript project.
+- [ ] Test it in JavaScript project, as opposed to TypeScript project.
 - [ ] Try `createREGL` in module-less, aka global environment.
 - [ ] Add typings for `regl.read()`.
 - [ ] Support all ways to create/reinitialize a texture
