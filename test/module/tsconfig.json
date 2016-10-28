@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": true
+    },
+    "files": [
+        "typings/index.d.ts",
+        "test.ts"
+    ]
+}
