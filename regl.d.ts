@@ -58,6 +58,7 @@ interface REGL {
     texture(): REGL.Texture2D;
     texture(width: number, height?: number): REGL.Texture2D;
     texture(options: REGL.TextureOptions): REGL.Texture2D;
+    // TODO Cover all possible things that could be used to create/update a texture
     texture(data: REGL.BufferDataType): REGL.Texture2D;
     texture(data: REGL.NDArray): REGL.Texture2D;
     texture(image: HTMLImageElement): REGL.Texture2D;
@@ -758,6 +759,9 @@ declare namespace REGL {
         "uint16" |
         "uint32"; // | REGL.Elements
 
+    // TODO Cover all possible things that could be used to create/update a texture
+    // Possible candidates: HTMLImageElement, HTMLVideoElement, NDArray,
+    // various typed arrays and (unflattened) JS arrays.
     type TextureImageData =
         number[] |
         number[][] |
