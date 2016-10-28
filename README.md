@@ -1,2 +1,2 @@
-# regl-typings
+# 🏰 regl-typings
 TypeScript typings for regl
