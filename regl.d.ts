@@ -82,9 +82,9 @@ interface REGL {
 
     /* Dynamic variable binding */
 
-    prop(name: string): REGL.DynamicVariable<"prop">;
-    context(name: string): REGL.DynamicVariable<"context">;
-    this(name: string): REGL.DynamicVariable<"this">;
+    prop(name: string): REGL.DynamicVariable;
+    context(name: string): REGL.DynamicVariable;
+    this(name: string): REGL.DynamicVariable;
 
     /* Drawing */
 
@@ -233,11 +233,13 @@ declare namespace REGL {
     }
 
 
-    abstract class DynamicVariable<T> {
-        // This class is supposed to be opaque. Properties are listed
-        // only because TS casts _anything_ to `DynamicVariable`.
-        readonly id: number;
-        readonly type: T;
+    type DynamicVariable = {
+        // This type is supposed to be opaque.
+        "Dynamic Variable": void;
+
+        // Properties are listed only because TS casts _anything_ to `DynamicVariable`.
+        // readonly id: number;
+        // readonly type: T;
     }
 
 
@@ -274,7 +276,7 @@ declare namespace REGL {
         (): void;
         (count: number): void;
         (body: REGL.CommandBodyFn): void;
-        (props: REGL.Props | REGL.Props[], body: REGL.CommandBodyFn): void;
+        (props: REGL.Props | REGL.Props[], body?: REGL.CommandBodyFn): void;
     }
 
 
@@ -1041,9 +1043,7 @@ declare namespace REGL {
         number |
         number[] |
         REGL.CommandBodyFn |
-        REGL.DynamicVariableType;
-
-    type DynamicVariableType = REGL.DynamicVariable<"prop" | "context" | "this">;
+        REGL.DynamicVariable;
 
     /**
      * An N-dimensional array, as per `ndarray` module.
