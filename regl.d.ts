@@ -82,9 +82,9 @@ interface REGL {
 
     /* Dynamic variable binding */
 
-    prop(name: string): REGL.DynamicVariable;
-    context(name: string): REGL.DynamicVariable;
-    this(name: string): REGL.DynamicVariable;
+    prop(name: string): REGL.DynamicVariable<"prop">;
+    context(name: string): REGL.DynamicVariable<"context">;
+    this(name: string): REGL.DynamicVariable<"this">;
 
     /* Drawing */
 
@@ -233,7 +233,12 @@ declare namespace REGL {
     }
 
 
-    class DynamicVariable { }
+    abstract class DynamicVariable<T> {
+        // This class is supposed to be opaque. Properties are listed
+        // only because TS casts _anything_ to `DynamicVariable`.
+        readonly id: number;
+        readonly type: T;
+    }
 
 
     interface ClearOptions {
@@ -1035,6 +1040,8 @@ declare namespace REGL {
         "uint8" |
         "half float" |
         "float";
+
+    type DynamicVariableType = REGL.DynamicVariable<"prop" | "context" | "this">;
 
     /**
      * An N-dimensional array, as per `ndarray` module.
