@@ -289,7 +289,10 @@ declare namespace REGL {
          * - gl.uniform
          */
         uniforms?: {
-            [name: string]: any;
+            [name: string]:
+                REGL.CommandBodyFn |
+                REGL.DynamicVariable |
+                any;
         }
 
         /**
