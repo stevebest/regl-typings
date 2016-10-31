@@ -71,14 +71,17 @@ interface REGL {
     /**
      * Read entire screen.
      */
-    read(): ArrayBufferView; // TODO What is the return type of `regl.read()`?
+    read(): Uint8Array | Float32Array;
 
     /**
-     * Read entire screen into an existing ArrayBufferView.
+     * Read entire screen into an existing `ArrayBufferView`.
      */
-    read(data: ArrayBufferView): void;
+    read<T extends Uint8Array | Float32Array>(data: T): T;
 
-    read(options: REGL.ReadOptions): any;
+    /**
+     * Read a selected region of screen or framebuffer.
+     */
+    read<T extends Uint8Array | Float32Array>(options: REGL.ReadOptions<T>): T;
 
     /* Dynamic variable binding */
 
@@ -255,13 +258,19 @@ declare namespace REGL {
     }
 
 
-    interface ReadOptions {
-        data?: ArrayBufferView;
+    interface ReadOptions<T> {
+        /** An optional ArrayBufferView which gets the result of reading the pixels. (Default: `null`) */
+        data?: T;
+        /** The x-offset of the upper-left corner of the rectangle in pixels. (Default: `0`) */
         x?: number;
+        /** The y-offset of the upper-left corner of the rectangle in pixels. (Default: `0`) */
         y?: number;
+        /** The width of the rectangle in pixels. (Default: current framebuffer width) */
         width?: number;
+        /** The height of the rectangle in pixels (Default: current framebuffer height) */
         height?: number;
-        framebuffer: REGL.Framebuffer;
+        /** Sets the framebuffer to read pixels from. (Default: currently bound framebuffer) */
+        framebuffer?: REGL.Framebuffer;
     }
 
 
