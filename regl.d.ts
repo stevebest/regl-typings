@@ -66,6 +66,22 @@ interface REGL {
     /** Clears selected buffers to specified values. */
     clear(options: REGL.ClearOptions): void;
 
+    /* Reading pixels */
+
+    /**
+     * Read entire screen.
+     */
+    read(): ArrayBufferView; // TODO What is the return type of `regl.read()`?
+
+    /**
+     * Read entire screen into an existing ArrayBufferView.
+     */
+    read(data: ArrayBufferView): void;
+
+    read(options: REGL.ReadOptions): any;
+
+    /* Dynamic variable binding */
+
     prop(name: string): REGL.DynamicVariable;
     context(name: string): REGL.DynamicVariable;
     this(name: string): REGL.DynamicVariable;
@@ -193,6 +209,16 @@ declare namespace REGL {
         stencil?: number;
         /** Sets the target framebuffer to clear (if unspecified, uses the current framebuffer object). */
         framebuffer?: REGL.Framebuffer | null;
+    }
+
+
+    interface ReadOptions {
+        data?: ArrayBufferView;
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+        framebuffer: REGL.Framebuffer;
     }
 
 
