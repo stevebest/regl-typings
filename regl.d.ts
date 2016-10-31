@@ -18,11 +18,35 @@ export as namespace createREGL;
 
 export = REGL;
 
+/**
+ * Creates a full screen canvas element and a WebGL rendering context.
+ */
 declare function REGL(): REGL;
+/**
+ * Creates a WebGL rendering context using an element selected by `selector`.
+ * 
+ * @param selector an argument to `document.querySelector`
+ */
 declare function REGL(selector: string): REGL;
-declare function REGL(container: HTMLElement): REGL;
+/**
+ * Creates a WebGL rendering context using a `<canvas>` element.
+ * 
+ * @param canvas HTML canvas element
+ */
 declare function REGL(canvas: HTMLCanvasElement): REGL;
+/**
+ * Creates a canvas element and a WebGL rendering context in a given container element.
+ * 
+ * @param container an HTML element
+ */
+declare function REGL(container: HTMLElement): REGL;
+/**
+ * Wraps an existing WebGL rendering context.
+ * 
+ * @param gl WebGL rendering context
+ */
 declare function REGL(gl: WebGLRenderingContext): REGL;
+
 declare function REGL(options: REGL.InitializationOptions): REGL;
 
 
