@@ -132,6 +132,23 @@ interface REGL {
     on(type: "restore", handler: () => void): REGL.Cancel;
     on(type: "destroy", handler: () => void): REGL.Cancel;
 
+    /* Extensions */
+
+    /**
+     * Test if an extension is present. Argument is case insensitive.
+     * 
+     * For more information on WebGL extensions, see the WebGL extension registry.
+     * 
+     * Relevant WebGL APIs
+     * 
+     * - [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/)
+     * - gl.getExtension
+     * - gl.getSupportedExtensions
+     * 
+     * @param name case-insensitive name of WebGL extension
+     */
+    hasExtension(name: string): boolean;
+
     /* Poll viewport and timers */
 
     poll(): void;
