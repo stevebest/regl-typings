@@ -86,6 +86,8 @@ interface REGL {
     context(name: string): REGL.DynamicVariable;
     this(name: string): REGL.DynamicVariable;
 
+    /* Drawing */
+
     /** Executes an empty draw command */
     draw(): void;
 
@@ -125,6 +127,14 @@ interface REGL {
 
     /* Events and listeners */
 
+    /**
+     * Registers a `callback` to be called on each animation frame.
+     * 
+     * This method integrates with `requestAnimationFrame` and context loss
+     * events. It also calls `gl.flush` and drains several internal buffers,
+     * so you should try to do all your rendering to the drawing buffer within
+     * the frame callback.
+     */
     frame(callback: () => void): REGL.Cancel;
 
     on(type: "frame", handler: () => void): REGL.Cancel;
@@ -151,14 +161,23 @@ interface REGL {
 
     /* Poll viewport and timers */
 
+    /**
+     * Updates the values of internal times and recalculates the size of viewports.
+     */
     poll(): void;
 
     /* Current time */
 
+    /**
+     * Returns Total time elapsed since regl was initialized in seconds.
+     */
     now(): number;
 
     /* Destruction */
 
+    /**
+     * Destroys the gl context and releases all associated resources.
+     */
     destroy(): void;
 
     /* Refresh */
