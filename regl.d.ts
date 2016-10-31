@@ -54,6 +54,8 @@ interface REGL {
     readonly attributes: WebGLContextAttributes;
     readonly contextLost: boolean;
     readonly _gl: WebGLRenderingContext;
+    readonly limits: REGL.Limits;
+    readonly stats: REGL.Stats;
 
     /**
      * Creates a new REGL command. The resulting command, when executed,
@@ -691,6 +693,90 @@ declare namespace REGL {
 
         // resize(): void;
         resize(radius: number): void;
+    }
+
+    // TODO Revise the types of `REGL.Limits` fields
+    interface Limits {
+        /** An array of bits depths for the red, green, blue and alpha channels */
+        colorBits?: [number, number, number, number];
+        /** Bit depth of drawing buffer */
+        depthBits?: number;
+        /** Bit depth of stencil buffer */
+        stencilBits?: number;
+        /** gl.SUBPIXEL_BITS */
+        subpixelBits?: any;
+        /** A list of all supported extensions */
+        extensions?: string[];
+        /** Maximum number of anisotropic filtering samples */
+        maxAnisotropic?: number;
+        /** Maximum number of draw buffers */
+        maxDrawbuffers?: number;
+        /** Maximum number of color attachments */
+        maxColorAttachments?: number;
+        /** gl.ALIASED_POINT_SIZE_RANGE */
+        pointSizeDims?: any;
+        /** gl.ALIASED_LINE_WIDTH_RANGE */
+        lineWidthDims?: any;
+        /** gl.MAX_VIEWPORT_DIMS */
+        maxViewportDims?: any;
+        /** gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS */
+        maxCombinedTextureUnits?: any;
+        /** gl.MAX_CUBE_MAP_TEXTURE_SIZE */
+        maxCubeMapSize?: any;
+        /** gl.MAX_RENDERBUFFER_SIZE */
+        maxRenderbufferSize?: any;
+        /** gl.MAX_TEXTURE_IMAGE_UNITS */
+        maxTextureUnits?: any;
+        /** gl.MAX_TEXTURE_SIZE */
+        maxTextureSize?: any;
+        /** gl.MAX_VERTEX_ATTRIBS */
+        maxAttributes?: any;
+        /** gl.MAX_VERTEX_UNIFORM_VECTORS */
+        maxVertexUniforms?: any;
+        /** gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS */
+        maxVertexTextureUnits?: any;
+        /** gl.MAX_VARYING_VECTORS */
+        maxVaryingVectors?: any;
+        /** gl.MAX_FRAGMENT_UNIFORM_VECTORS */
+        maxFragmentUniforms?: any;
+        /** gl.SHADING_LANGUAGE_VERSION */
+        glsl?: string;
+        /** gl.RENDERER */
+        renderer?: string;
+        /** gl.VENDOR */
+        vendor?: string;
+        /** gl.VERSION */
+        version?: string;
+    }
+
+    // TODO Revise the types of `REGL.Stats`
+    interface Stats {
+        /** The number of array buffers currently allocated */
+        bufferCount?: number;
+        /** The number of element buffers currently allocated */
+        elementsCount?: number;
+        /** The number of framebuffers currently allocated */
+        framebufferCount?: number;
+        /** The number of shaders currently allocated */
+        shaderCount?: number;
+        /** The number of textures currently allocated */
+        textureCount?: number;
+        /** The number of cube maps currently allocated */
+        cubeCount?: number;
+        /** The number of renderbuffers currently allocated */
+        renderbufferCount?: number;
+        /** The total amount of memory allocated for textures and cube maps */
+        getTotalTextureSize(): number;
+        /** The total amount of memory allocated for array buffers and element buffers */
+        getTotalBufferSize(): number;
+        /** The total amount of memory allocated for renderbuffers */
+        getTotalRenderbufferSize(): number;
+        /** The maximum number of uniforms in any shader */
+        getMaxUniformsCount(): number;
+        /** The maximum number of attributes in any shader */
+        getMaxAttributesCount(): number;
+        /** The maximum number of texture units used */
+        maxTextureUnits: number;
     }
 
     type ComparisonOperatorType =
