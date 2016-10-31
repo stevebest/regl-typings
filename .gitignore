@@ -6,4 +6,3 @@ node_modules/
 # Development files
 ###################
 test/**/*.d.ts
-*.js
