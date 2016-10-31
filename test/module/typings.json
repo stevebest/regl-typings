@@ -1,6 +1,0 @@
-{
-    "version": false,
-    "dependencies": {
-        "regl": "file:../../typings.json"
-    }
-}

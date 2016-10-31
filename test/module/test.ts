@@ -1,5 +1,4 @@
-
-import REGL = require('regl');
+import REGL = require('../../regl');
 
 /* Creating a REGL object */
 

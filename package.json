@@ -1,0 +1,4 @@
+{
+    "name": "@types/regl",
+    "types": "regl.d.ts"
+}
