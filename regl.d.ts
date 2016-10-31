@@ -290,6 +290,9 @@ declare namespace REGL {
          */
         uniforms?: {
             [name: string]:
+                boolean |
+                number |
+                number[] |
                 REGL.CommandBodyFn |
                 REGL.DynamicVariable |
                 any;
