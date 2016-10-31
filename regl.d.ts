@@ -294,13 +294,7 @@ declare namespace REGL {
          * - gl.uniform
          */
         uniforms?: {
-            [name: string]:
-                boolean |
-                number |
-                number[] |
-                REGL.CommandBodyFn |
-                REGL.DynamicVariable |
-                any;
+            [name: string]: REGL.UniformType;
         }
 
         /**
@@ -1040,6 +1034,14 @@ declare namespace REGL {
         "uint8" |
         "half float" |
         "float";
+
+    type UniformType =
+        boolean |
+        boolean[] |
+        number |
+        number[] |
+        REGL.CommandBodyFn |
+        REGL.DynamicVariableType;
 
     type DynamicVariableType = REGL.DynamicVariable<"prop" | "context" | "this">;
 
