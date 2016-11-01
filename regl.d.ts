@@ -304,9 +304,7 @@ declare namespace REGL {
          * - gl.getUniformLocation
          * - gl.uniform
          */
-        uniforms?: {
-            [name: string]: REGL.UniformType;
-        }
+        uniforms?: REGL.Props;
 
         /**
          * Related WebGL APIs
@@ -1046,13 +1044,22 @@ declare namespace REGL {
         "half float" |
         "float";
 
-    type UniformType =
+    type Props = {
+        [name: string]: PropType;
+    }
+
+    type PropType =
         boolean |
-        boolean[] |
         number |
-        number[] |
         REGL.CommandBodyFn |
-        REGL.DynamicVariable;
+        REGL.DynamicVariable |
+        REGL.PropArray |
+        REGL.Props;
+
+    // TypeScript doesn't allow directly specify recursive structures like
+    // type PropType = ... | PropType[];
+    // https://github.com/Microsoft/TypeScript/issues/3988
+    interface PropArray extends Array<PropType> { }
 
     /**
      * An N-dimensional array, as per `ndarray` module.
