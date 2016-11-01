@@ -336,11 +336,16 @@ declare namespace REGL {
          */
         offset?: number;
         /**
-         * Number of instances to draw.
+         * Number of instances to draw. (Default: 0)
+         * 
+         * Only applicable if the `ANGLE_instanced_arrays` extension is present.
          */
         instances?: number;
         /**
-         * Element array buffer.
+         * Element array buffer. (Default: `null`)
+         * 
+         * If `elements` is specified while `primitive`, `count` and `offset` are not,
+         * then these values may be inferred from the state of the element array buffer.
          */
         elements?: REGL.Elements; // TODO number[],
 
