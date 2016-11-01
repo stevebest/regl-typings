@@ -442,11 +442,17 @@ declare namespace REGL {
 
 
     interface Attribute {
+        /** A REGLBuffer wrapping the buffer object. (Default: null) */
         buffer?: REGL.Buffer;
+        /** The offset of the vertexAttribPointer in bytes. (Default: 0) */
         offset?: number;
+        /** The stride of the vertexAttribPointer in bytes. (Default: 0) */
         stride?: number;
+        /** Whether the pointer is normalized. (Default: false) */
         normalized?: boolean;
+        /** The size of the vertex attribute. (Default: Inferred from shader) */
         size?: number;
+        /** Sets gl.vertexAttribDivisorANGLE. (Default: 0) */
         divisor?: number;
     }
 
