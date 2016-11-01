@@ -355,6 +355,10 @@ declare namespace REGL {
          */
         framebuffer?: REGL.Framebuffer | null;
 
+        /* Profiling */
+        /** If set, turns on profiling for this command. (Default: `false`) */
+        profile?: boolean;
+
         /* Depth buffer */
 
         /**
