@@ -282,6 +282,8 @@ declare namespace REGL {
 
 
     interface Command {
+        readonly stats: REGL.CommandStats;
+
         (): void;
         (count: number): void;
         (body: REGL.CommandBodyFn): void;
@@ -859,6 +861,18 @@ declare namespace REGL {
         getMaxAttributesCount(): number;
         /** The maximum number of texture units used */
         maxTextureUnits: number;
+    }
+
+    interface CommandStats {
+        /** The number of times the command has been called. */
+        count: number;
+        /** The cumulative CPU time spent executing the command in milliseconds. */
+        cpuTime: number;
+        /**
+         * The cumulative GPU time spent executing the command in milliseconds
+         * (requires the `EXT_disjoint_timer_query` extension).
+         */
+        gpuTime: number;
     }
 
     type ComparisonOperatorType =
