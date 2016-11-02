@@ -1,4 +1,12 @@
 {
-    "name": "@types/regl",
-    "types": "regl.d.ts"
+  "name": "@types/regl",
+  "version": "0.1.0",
+  "types": "regl.d.ts",
+  "scripts": {
+    "prepublish": "npm run docs",
+    "docs": "typedoc regl.d.ts --out doc --mode file --includeDeclarations --entryPoint REGL --readme none"
+  },
+  "devDependencies": {
+    "typedoc": "^0.5.1"
+  }
 }
