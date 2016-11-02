@@ -276,11 +276,14 @@ declare namespace REGL {
     }
 
 
-    type CommandBodyFn = (
-        context: REGL.Context,
-        props: REGL.Props,
-        batchId: number,
-    ) => void;
+    interface CommandBodyFn {
+        /**
+         * @param context       REGL context
+         * @param props         additional parameters of a draw call
+         * @param batchId       index of a command in a batch call
+         */
+        (context: REGL.Context, props: REGL.Props, batchId: number): void;
+    }
 
 
     /**
@@ -625,7 +628,7 @@ declare namespace REGL {
         width?: number;
         height?: number;
 
-        data?: REGL.BufferDataType;
+        data?: REGL.TextureImageData;
 
         mag?: REGL.TextureMagFilterType;
         min?: REGL.TextureMinFilterType;
