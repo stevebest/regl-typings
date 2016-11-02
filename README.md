@@ -13,6 +13,7 @@ TypeScript typings for regl
 - [ ] Add typings for `REGL.Props`.
 - [ ] Maybe introduce nested namespaces, like `REGL.Drawing` and `REGL.Texture`
       to decrease top-level module clutter.
+- [ ] Downgrade `*Options` from interfaces to object types.
 
 In general, I see `REGL.Command` as a generic type parametrized by the type
 of its props, like so
