@@ -52,15 +52,12 @@ declare function REGL(gl: WebGLRenderingContext): REGL.Regl;
 declare function REGL(options: REGL.InitializationOptions): REGL.Regl;
 
 
-/**
- * Documentation for namespace REGL.
- */
 declare namespace REGL {
 
     /**
      * Documentation for interface `Regl`.
      */
-    interface Regl {
+    export interface Regl {
         readonly attributes: WebGLContextAttributes;
         readonly contextLost: boolean;
         readonly _gl: WebGLRenderingContext;
@@ -111,20 +108,17 @@ declare namespace REGL {
 
         elements(options: REGL.ElementsOptions): REGL.Elements;
 
-        /** Creates a `1x1` empty texture. */
-        texture(): REGL.Texture2D;
-        texture(width: number, height?: number): REGL.Texture2D;
+        /**
+         * Creates an empty texture with given dimensions.
+         * 
+         * @param width     width of a texture, in pixels (Default: `1`)
+         * @param height    height of a texture, in pixels (Default: equal to `width`)
+         */
+        texture(width?: number, height?: number): REGL.Texture2D;
+        texture(data: REGL.TextureImageData): REGL.Texture2D;
         texture(options: REGL.TextureOptions): REGL.Texture2D;
-        // TODO Cover all possible things that could be used to create/update a texture
-        texture(data: REGL.BufferDataType): REGL.Texture2D;
-        texture(data: REGL.NDArray): REGL.Texture2D;
-        texture(image: HTMLImageElement): REGL.Texture2D;
-        texture(canvas: HTMLCanvasElement): REGL.Texture2D;
-        texture(context2D: CanvasRenderingContext2D): REGL.Texture2D;
-        texture(video: HTMLVideoElement): REGL.Texture2D;
 
-        cube(): REGL.TextureCube;
-        cube(radius: number): REGL.TextureCube;
+        cube(radius?: number): REGL.TextureCube;
         cube(
             posX: REGL.TextureImageData, negX: REGL.TextureImageData,
             posY: REGL.TextureImageData, negY: REGL.TextureImageData,
@@ -674,14 +668,21 @@ declare namespace REGL {
     }
 
     interface Texture2D extends Texture {
+        /** Reinitializes the texture. */
         (data: TextureOptions): void;
 
+        /**
+         * Replaces the part of texture with new data.
+         * 
+         * @param data      image data object, similar to arguments for the texture constructor
+         * @param x         horizontal offset of the image within the texture (Default: `0`)
+         * @param y         vertical offset of the image within the texture (Default: `0`)
+         * @param level     mipmap level of the texture to modify (Default: `0`)
+         */
         subimage(data: TextureOptions, x?: number, y?: number, level?: number): void;
 
-        /** Resizes a texture to `0x0` */
-        resize(): void;
-        resize(radius: number): void;
-        resize(width: number, height: number): void;
+        /** Resizes a texture. */
+        resize(width?: number, height?: number): void;
     }
 
 
@@ -692,7 +693,6 @@ declare namespace REGL {
             TextureImageData, TextureImageData,
             TextureImageData, TextureImageData
         ];
-
     }
 
     interface TextureCube extends Texture {
@@ -997,7 +997,12 @@ declare namespace REGL {
     type TextureImageData =
         number[] |
         number[][] |
-        Uint8Array;
+        ArrayBufferView |
+        HTMLImageElement |
+        HTMLCanvasElement |
+        CanvasRenderingContext2D |
+        HTMLVideoElement |
+        REGL.NDArray;
 
     type TextureFormatType =
         "alpha" |
