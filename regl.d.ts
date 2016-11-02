@@ -21,181 +21,183 @@ export = REGL;
 /**
  * Creates a full screen canvas element and a WebGL rendering context.
  */
-declare function REGL(): Regl;
+declare function REGL(): REGL.Regl;
 /**
  * Creates a WebGL rendering context using an element selected by `selector`.
  * 
  * @param selector an argument to `document.querySelector`
  */
-declare function REGL(selector: string): Regl;
+declare function REGL(selector: string): REGL.Regl;
 /**
  * Creates a WebGL rendering context using a `<canvas>` element.
  * 
  * @param canvas HTML canvas element
  */
-declare function REGL(canvas: HTMLCanvasElement): Regl;
+declare function REGL(canvas: HTMLCanvasElement): REGL.Regl;
 /**
  * Creates a canvas element and a WebGL rendering context in a given container element.
  * 
  * @param container an HTML element
  */
-declare function REGL(container: HTMLElement): Regl;
+declare function REGL(container: HTMLElement): REGL.Regl;
 /**
  * Wraps an existing WebGL rendering context.
  * 
  * @param gl WebGL rendering context
  */
-declare function REGL(gl: WebGLRenderingContext): Regl;
+declare function REGL(gl: WebGLRenderingContext): REGL.Regl;
 /**
  * Creates a WebGL according to specified `options`
  */
-declare function REGL(options: REGL.InitializationOptions): Regl;
+declare function REGL(options: REGL.InitializationOptions): REGL.Regl;
 
-/**
- * Documentation for interface `Regl`.
- */
-interface Regl {
-    readonly attributes: WebGLContextAttributes;
-    readonly contextLost: boolean;
-    readonly _gl: WebGLRenderingContext;
-    readonly limits: REGL.Limits;
-    readonly stats: REGL.Stats;
-
-    /**
-     * Creates a new REGL command. The resulting command, when executed,
-     * will set a WebGL state machine to a specified `state`.
-     */
-    (state: REGL.State): REGL.Command;
-
-    /** Clears selected buffers to specified values. */
-    clear(options: REGL.ClearOptions): void;
-
-    /* Reading pixels */
-
-    /**
-     * Read entire screen.
-     */
-    read(): Uint8Array | Float32Array;
-
-    /**
-     * Read entire screen into an existing `ArrayBufferView`.
-     */
-    read<T extends Uint8Array | Float32Array>(data: T): T;
-
-    /**
-     * Read a selected region of screen or framebuffer.
-     */
-    read<T extends Uint8Array | Float32Array>(options: REGL.ReadOptions<T>): T;
-
-    /* Dynamic variable binding */
-
-    prop(name: string): REGL.DynamicVariable;
-    context(name: string): REGL.DynamicVariable;
-    this(name: string): REGL.DynamicVariable;
-
-    /* Drawing */
-
-    /** Executes an empty draw command */
-    draw(): void;
-
-    /* Resource creation */
-
-    buffer(length: number): REGL.Buffer;
-    buffer(options: REGL.BufferOptions): REGL.Buffer;
-
-    elements(options: REGL.ElementsOptions): REGL.Elements;
-
-    /** Creates a `1x1` empty texture. */
-    texture(): REGL.Texture2D;
-    texture(width: number, height?: number): REGL.Texture2D;
-    texture(options: REGL.TextureOptions): REGL.Texture2D;
-    // TODO Cover all possible things that could be used to create/update a texture
-    texture(data: REGL.BufferDataType): REGL.Texture2D;
-    texture(data: REGL.NDArray): REGL.Texture2D;
-    texture(image: HTMLImageElement): REGL.Texture2D;
-    texture(canvas: HTMLCanvasElement): REGL.Texture2D;
-    texture(context2D: CanvasRenderingContext2D): REGL.Texture2D;
-    texture(video: HTMLVideoElement): REGL.Texture2D;
-
-    cube(): REGL.TextureCube;
-    cube(radius: number): REGL.TextureCube;
-    cube(
-        posX: REGL.TextureImageData, negX: REGL.TextureImageData,
-        posY: REGL.TextureImageData, negY: REGL.TextureImageData,
-        posZ: REGL.TextureImageData, negZ: REGL.TextureImageData
-    ): REGL.TextureCube;
-    cube(options: REGL.TextureCubeOptions): REGL.TextureCube;
-
-    renderbuffer(options: REGL.RenderbufferOptions): REGL.Renderbuffer;
-
-    framebuffer(options: REGL.FramebufferOptions): REGL.Framebuffer;
-
-    framebufferCube(options: REGL.FramebufferCubeOptions): REGL.FramebufferCube;
-
-    /* Events and listeners */
-
-    /**
-     * Registers a `callback` to be called on each animation frame.
-     * 
-     * This method integrates with `requestAnimationFrame` and context loss
-     * events. It also calls `gl.flush` and drains several internal buffers,
-     * so you should try to do all your rendering to the drawing buffer within
-     * the frame callback.
-     */
-    frame(callback: () => void): REGL.Cancel;
-
-    on(type: "frame", handler: () => void): REGL.Cancel;
-    on(type: "lost", handler: () => void): REGL.Cancel;
-    on(type: "restore", handler: () => void): REGL.Cancel;
-    on(type: "destroy", handler: () => void): REGL.Cancel;
-
-    /* Extensions */
-
-    /**
-     * Test if an extension is present. Argument is case insensitive.
-     * 
-     * For more information on WebGL extensions, see the WebGL extension registry.
-     * 
-     * Relevant WebGL APIs
-     * 
-     * - [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/)
-     * - gl.getExtension
-     * - gl.getSupportedExtensions
-     * 
-     * @param name case-insensitive name of WebGL extension
-     */
-    hasExtension(name: string): boolean;
-
-    /* Poll viewport and timers */
-
-    /**
-     * Updates the values of internal times and recalculates the size of viewports.
-     */
-    poll(): void;
-
-    /* Current time */
-
-    /**
-     * Returns Total time elapsed since regl was initialized in seconds.
-     */
-    now(): number;
-
-    /* Destruction */
-
-    /**
-     * Destroys the gl context and releases all associated resources.
-     */
-    destroy(): void;
-
-    /* Refresh */
-
-    _refresh(): void;
-}
 
 /**
  * Documentation for namespace REGL.
  */
 declare namespace REGL {
+
+    /**
+     * Documentation for interface `Regl`.
+     */
+    interface Regl {
+        readonly attributes: WebGLContextAttributes;
+        readonly contextLost: boolean;
+        readonly _gl: WebGLRenderingContext;
+        readonly limits: REGL.Limits;
+        readonly stats: REGL.Stats;
+
+        /**
+         * Creates a new REGL command. The resulting command, when executed,
+         * will set a WebGL state machine to a specified `state`.
+         */
+        (state: REGL.State): REGL.Command;
+
+        /** Clears selected buffers to specified values. */
+        clear(options: REGL.ClearOptions): void;
+
+        /* Reading pixels */
+
+        /**
+         * Read entire screen.
+         */
+        read(): Uint8Array | Float32Array;
+
+        /**
+         * Read entire screen into an existing `ArrayBufferView`.
+         */
+        read<T extends Uint8Array | Float32Array>(data: T): T;
+
+        /**
+         * Read a selected region of screen or framebuffer.
+         */
+        read<T extends Uint8Array | Float32Array>(options: REGL.ReadOptions<T>): T;
+
+        /* Dynamic variable binding */
+
+        prop(name: string): REGL.DynamicVariable;
+        context(name: string): REGL.DynamicVariable;
+        this(name: string): REGL.DynamicVariable;
+
+        /* Drawing */
+
+        /** Executes an empty draw command */
+        draw(): void;
+
+        /* Resource creation */
+
+        buffer(length: number): REGL.Buffer;
+        buffer(options: REGL.BufferOptions): REGL.Buffer;
+
+        elements(options: REGL.ElementsOptions): REGL.Elements;
+
+        /** Creates a `1x1` empty texture. */
+        texture(): REGL.Texture2D;
+        texture(width: number, height?: number): REGL.Texture2D;
+        texture(options: REGL.TextureOptions): REGL.Texture2D;
+        // TODO Cover all possible things that could be used to create/update a texture
+        texture(data: REGL.BufferDataType): REGL.Texture2D;
+        texture(data: REGL.NDArray): REGL.Texture2D;
+        texture(image: HTMLImageElement): REGL.Texture2D;
+        texture(canvas: HTMLCanvasElement): REGL.Texture2D;
+        texture(context2D: CanvasRenderingContext2D): REGL.Texture2D;
+        texture(video: HTMLVideoElement): REGL.Texture2D;
+
+        cube(): REGL.TextureCube;
+        cube(radius: number): REGL.TextureCube;
+        cube(
+            posX: REGL.TextureImageData, negX: REGL.TextureImageData,
+            posY: REGL.TextureImageData, negY: REGL.TextureImageData,
+            posZ: REGL.TextureImageData, negZ: REGL.TextureImageData
+        ): REGL.TextureCube;
+        cube(options: REGL.TextureCubeOptions): REGL.TextureCube;
+
+        renderbuffer(options: REGL.RenderbufferOptions): REGL.Renderbuffer;
+
+        framebuffer(options: REGL.FramebufferOptions): REGL.Framebuffer;
+
+        framebufferCube(options: REGL.FramebufferCubeOptions): REGL.FramebufferCube;
+
+        /* Events and listeners */
+
+        /**
+         * Registers a `callback` to be called on each animation frame.
+         * 
+         * This method integrates with `requestAnimationFrame` and context loss
+         * events. It also calls `gl.flush` and drains several internal buffers,
+         * so you should try to do all your rendering to the drawing buffer within
+         * the frame callback.
+         */
+        frame(callback: () => void): REGL.Cancel;
+
+        on(type: "frame", handler: () => void): REGL.Cancel;
+        on(type: "lost", handler: () => void): REGL.Cancel;
+        on(type: "restore", handler: () => void): REGL.Cancel;
+        on(type: "destroy", handler: () => void): REGL.Cancel;
+
+        /* Extensions */
+
+        /**
+         * Test if an extension is present. Argument is case insensitive.
+         * 
+         * For more information on WebGL extensions, see the WebGL extension registry.
+         * 
+         * Relevant WebGL APIs
+         * 
+         * - [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/)
+         * - gl.getExtension
+         * - gl.getSupportedExtensions
+         * 
+         * @param name case-insensitive name of WebGL extension
+         */
+        hasExtension(name: string): boolean;
+
+        /* Poll viewport and timers */
+
+        /**
+         * Updates the values of internal times and recalculates the size of viewports.
+         */
+        poll(): void;
+
+        /* Current time */
+
+        /**
+         * Returns Total time elapsed since regl was initialized in seconds.
+         */
+        now(): number;
+
+        /* Destruction */
+
+        /**
+         * Destroys the gl context and releases all associated resources.
+         */
+        destroy(): void;
+
+        /* Refresh */
+
+        _refresh(): void;
+    }
+
 
     interface InitializationOptions {
         /** A container element which regl inserts a canvas into. (Default document.body) */
