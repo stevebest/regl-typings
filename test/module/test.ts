@@ -1,4 +1,5 @@
-import REGL = require('../../regl');
+import * as REGL from '../../regl';
+// import REGL = require('../../regl');
 
 /* Creating a REGL object */
 
@@ -35,7 +36,7 @@ REGL({
     }
 });
 
-const regl: REGL = REGL();
+const regl: REGL.Regl = REGL();
 
 // Add listeners using regl.on(...) 
 const onFrame = regl.on("frame", () => { });
@@ -64,7 +65,12 @@ const drawTriangle: REGL.Command = regl({
     frag: '',
 
     uniforms: {
-        color: [],
+        color: [1, 1, 1, 1],
+        mask: [true, false, 42],
+        struct: {
+            foo: 42,
+            bar: [ true, false ],
+        },
         translation: regl.this('translation'),
     },
 

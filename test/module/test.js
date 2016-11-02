@@ -1,5 +1,5 @@
-// import * as REGL from '../../regl';
-var REGL = require('../../regl')
+import * as REGL from '../../regl';
+// var REGL = require('../../regl')
 
 var regl = REGL()
 
