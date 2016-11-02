@@ -247,6 +247,8 @@ declare namespace REGL {
         // readonly type: T;
     }
 
+    type DynamicVariableFn = (context: REGL.Context, props: REGL.Props, batchId: number) => PropType;
+
 
     interface ClearOptions {
         /** Specify the red, green, blue, and alpha values used when the color buffers are cleared. The initial values are all `0.0`. */
@@ -1105,8 +1107,8 @@ declare namespace REGL {
     type PropType =
         boolean |
         number |
-        REGL.CommandBodyFn |
         REGL.DynamicVariable |
+        REGL.DynamicVariableFn |
         REGL.PropArray |
         REGL.Props;
 
