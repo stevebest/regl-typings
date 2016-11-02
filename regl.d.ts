@@ -116,7 +116,7 @@ declare namespace REGL {
          */
         texture(width?: number, height?: number): REGL.Texture2D;
         texture(data: REGL.TextureImageData): REGL.Texture2D;
-        texture(options: REGL.TextureOptions): REGL.Texture2D;
+        texture(options: REGL.Texture2DOptions): REGL.Texture2D;
 
         cube(radius?: number): REGL.TextureCube;
         cube(
@@ -617,7 +617,7 @@ declare namespace REGL {
     }
 
 
-    interface TextureOptions {
+    interface Texture2DOptions {
         /** Sets `width`, `height` and, optionally, `channels`. */
         shape?: [number, number] | [number, number, REGL.TextureChannelsType];
         /** Sets equal `width` and `height`. */
@@ -669,7 +669,7 @@ declare namespace REGL {
 
     interface Texture2D extends Texture {
         /** Reinitializes the texture. */
-        (data: TextureOptions): void;
+        (data: Texture2DOptions): void;
 
         /**
          * Replaces the part of texture with new data.
@@ -679,7 +679,7 @@ declare namespace REGL {
          * @param y         vertical offset of the image within the texture (Default: `0`)
          * @param level     mipmap level of the texture to modify (Default: `0`)
          */
-        subimage(data: TextureOptions, x?: number, y?: number, level?: number): void;
+        subimage(data: Texture2DOptions, x?: number, y?: number, level?: number): void;
 
         /** Resizes a texture. */
         resize(width?: number, height?: number): void;
