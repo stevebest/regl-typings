@@ -4,7 +4,7 @@
   "types": "regl.d.ts",
   "scripts": {
     "prepublish": "npm run docs",
-    "docs": "typedoc regl.d.ts --out doc --mode file --includeDeclarations --entryPoint REGL --readme none"
+    "docs": "typedoc regl.d.ts --out docs --mode file --includeDeclarations --entryPoint REGL --readme none"
   },
   "devDependencies": {
     "typedoc": "^0.5.1"
