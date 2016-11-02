@@ -3,14 +3,16 @@ TypeScript typings for regl
 
 ### TODO
 
-- [ ] Test it in JavaScript project, as opposed to TypeScript project.
-- [ ] Try `createREGL` in module-less, aka global environment.
-- [ ] Add typings for `regl.read()`.
+- [x] Test it in JavaScript project, as opposed to TypeScript project.
+- [x] Try `createREGL` in module-less, aka global environment.
+- [x] Add typings for `regl.read()`.
 - [ ] Support all ways to create/reinitialize a texture
       from arrays/typed arrays/ndarrays/framebuffers/textures.
       See https://github.com/regl-project/regl/blob/gh-pages/API.md#texture-constructor
 - [ ] Add typings for `regl.texture({ copy: true })`.
 - [ ] Add typings for `REGL.Props`.
+- [ ] Maybe introduce nested namespaces, like `REGL.Drawing` and `REGL.Texture`
+      to decrease top-level module clutter.
 
 In general, I see `REGL.Command` as a generic type parametrized by the type
 of its props, like so
