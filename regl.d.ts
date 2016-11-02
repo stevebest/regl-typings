@@ -21,36 +21,40 @@ export = REGL;
 /**
  * Creates a full screen canvas element and a WebGL rendering context.
  */
-declare function REGL(): REGL;
+declare function REGL(): Regl;
 /**
  * Creates a WebGL rendering context using an element selected by `selector`.
  * 
  * @param selector an argument to `document.querySelector`
  */
-declare function REGL(selector: string): REGL;
+declare function REGL(selector: string): Regl;
 /**
  * Creates a WebGL rendering context using a `<canvas>` element.
  * 
  * @param canvas HTML canvas element
  */
-declare function REGL(canvas: HTMLCanvasElement): REGL;
+declare function REGL(canvas: HTMLCanvasElement): Regl;
 /**
  * Creates a canvas element and a WebGL rendering context in a given container element.
  * 
  * @param container an HTML element
  */
-declare function REGL(container: HTMLElement): REGL;
+declare function REGL(container: HTMLElement): Regl;
 /**
  * Wraps an existing WebGL rendering context.
  * 
  * @param gl WebGL rendering context
  */
-declare function REGL(gl: WebGLRenderingContext): REGL;
+declare function REGL(gl: WebGLRenderingContext): Regl;
+/**
+ * Creates a WebGL according to specified `options`
+ */
+declare function REGL(options: REGL.InitializationOptions): Regl;
 
-declare function REGL(options: REGL.InitializationOptions): REGL;
-
-
-interface REGL {
+/**
+ * Documentation for interface `Regl`.
+ */
+interface Regl {
     readonly attributes: WebGLContextAttributes;
     readonly contextLost: boolean;
     readonly _gl: WebGLRenderingContext;
@@ -188,7 +192,9 @@ interface REGL {
     _refresh(): void;
 }
 
-
+/**
+ * Documentation for namespace REGL.
+ */
 declare namespace REGL {
 
     interface InitializationOptions {
@@ -209,7 +215,7 @@ declare namespace REGL {
         /** If set, turns on profiling for all commands by default. (Default false) */
         profile?: boolean;
         /** An optional callback which accepts a pair of arguments, (err, regl) that is called after the application loads. If not specified, context creation errors throw */
-        onDone?: (err: Error | null, regl?: REGL) => void;
+        onDone?: (err: Error | null, regl?: Regl) => void;
     }
 
 
@@ -281,12 +287,18 @@ declare namespace REGL {
     ) => void;
 
 
+    /**
+     * A *command* is a complete representation of the WebGL state required
+     * to perform some draw call.
+     */
     interface Command {
         readonly stats: REGL.CommandStats;
 
-        (): void;
-        (count: number): void;
-        (body: REGL.CommandBodyFn): void;
+        /** Run a command once. */
+        (body?: REGL.CommandBodyFn): void;
+        /** Run a command `count` times. */
+        (count: number, body?: REGL.CommandBodyFn): void;
+        /** Run a command batch. */
         (props: REGL.Props | REGL.Props[], body?: REGL.CommandBodyFn): void;
     }
 
@@ -562,6 +574,9 @@ declare namespace REGL {
      * Resources
      */
 
+    /**
+     * A *resource* is a handle to a GPU resident object, like a texture, FBO or buffer.
+     */
     interface Resource {
         destroy(): void;
     }
